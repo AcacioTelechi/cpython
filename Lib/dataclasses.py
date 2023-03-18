@@ -1296,6 +1296,8 @@ def _asdict_inner(obj, dict_factory):
         result = []
         for f in fields(obj):
             value = _asdict_inner(getattr(obj, f.name), dict_factory)
+            if not f.repr:
+                continue
             result.append((f.name, value))
         return dict_factory(result)
     elif isinstance(obj, tuple) and hasattr(obj, '_fields'):
